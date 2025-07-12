@@ -37,21 +37,27 @@ public class HelloController {
 
     @FXML
     public void initialize() {
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        // ✅ Force only the 5 defined columns to be shown
+        tableView.getColumns().setAll(idColumn, nameColumn, departmentColumn, gpaColumn, noteColumn);
+
         idColumn.setCellValueFactory(cell -> cell.getValue().idProperty().asObject());
         nameColumn.setCellValueFactory(cell -> cell.getValue().nameProperty());
         departmentColumn.setCellValueFactory(cell -> cell.getValue().departmentProperty());
         gpaColumn.setCellValueFactory(cell -> cell.getValue().gpaProperty().asObject());
         noteColumn.setCellValueFactory(cell -> cell.getValue().noteProperty());
 
-        tableView.setOnMouseClicked(this::handleRowClick);
+        loadStudents();
 
         FilteredList<Student> filteredData = new FilteredList<>(studentList, b -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredData.setPredicate(student -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                String lowerCaseFilter = newValue.toLowerCase();
-                return student.getName().toLowerCase().contains(lowerCaseFilter)
-                        || student.getDepartment().toLowerCase().contains(lowerCaseFilter);
+                if (newVal == null || newVal.isEmpty()) return true;
+                String lower = newVal.toLowerCase();
+                return student.getName().toLowerCase().contains(lower)
+                        || student.getDepartment().toLowerCase().contains(lower)
+                        || student.getNote().toLowerCase().contains(lower);
             });
         });
 
@@ -59,7 +65,15 @@ public class HelloController {
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
         tableView.setItems(sortedData);
 
-        loadStudents();
+        tableView.setOnMouseClicked(event -> {
+            Student selected = tableView.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                nameField.setText(selected.getName());
+                departmentField.setText(selected.getDepartment());
+                gpaField.setText(String.valueOf(selected.getGpa()));
+                noteField.setText(selected.getNote());
+            }
+        });
     }
 
     private void loadStudents() {
