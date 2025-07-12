@@ -31,7 +31,6 @@
         <TextField fx:id="noteField" promptText="Note" />
     </HBox>
 
-
     <!-- 🧰 Action Buttons -->
     <HBox spacing="10">
         <Button text="➕ Add Student" onAction="#handleAdd"
@@ -52,13 +51,13 @@
     </HBox>
 
     <!-- 📊 Table View -->
-    <TableView fx:id="tableView" prefHeight="300">
+    <TableView fx:id="tableView" editable="false"> <!-- ✅ Prevent editing/auto column -->
         <columns>
-            <TableColumn fx:id="idColumn" text="ID" prefWidth="20"/>
-            <TableColumn fx:id="nameColumn" text="Name" prefWidth="130"/>
-            <TableColumn fx:id="departmentColumn" text="Department" prefWidth="150"/>
-            <TableColumn fx:id="gpaColumn" text="GPA" prefWidth="40"/>
-            <TableColumn fx:id="noteColumn" text="Note" prefWidth="240"/>
+            <TableColumn fx:id="idColumn" text="ID" />
+            <TableColumn fx:id="nameColumn" text="Name" />
+            <TableColumn fx:id="departmentColumn" text="Department" />
+            <TableColumn fx:id="gpaColumn" text="GPA" />
+            <TableColumn fx:id="noteColumn" text="Note" />
         </columns>
     </TableView>
 
