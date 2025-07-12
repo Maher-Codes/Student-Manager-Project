@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.studentmanager.HelloController"
+      spacing="10">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- 💡 Title -->
+    <Label text="🧑‍🎓 Maher’s Student Manager"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2E86C1;" />
+
+    <!-- 🔍 Search Bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Search:" />
+        <TextField fx:id="searchField" promptText="Search by name..." />
+    </HBox>
+
+    <!-- 🧾 Input Fields -->
+    <HBox spacing="10">
+        <TextField fx:id="nameField" promptText="Name" />
+        <TextField fx:id="departmentField" promptText="Department" />
+        <TextField fx:id="gpaField" promptText="GPA" />
+        <TextField fx:id="noteField" promptText="Note" />
+    </HBox>
+
+
+    <!-- 🧰 Action Buttons -->
+    <HBox spacing="10">
+        <Button text="➕ Add Student" onAction="#handleAdd"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+        <Button text="✏️ Edit Student" onAction="#handleEdit"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+        <Button text="❌ Remove" onAction="#handleDelete"
+                style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+
+        <!-- ⬇️ Export Dropdown -->
+        <MenuButton text="📄 Export" fx:id="exportMenuButton"
+                    style="-fx-background-color: #9C27B0; -fx-text-fill: white;">
+            <items>
+                <MenuItem text="Export as CSV" onAction="#handleExportCSV"/>
+                <MenuItem text="Export as PNG" onAction="#handleExportPNG"/>
+            </items>
+        </MenuButton>
+    </HBox>
+
+    <!-- 📊 Table View -->
+    <TableView fx:id="tableView" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="20"/>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="130"/>
+            <TableColumn fx:id="departmentColumn" text="Department" prefWidth="150"/>
+            <TableColumn fx:id="gpaColumn" text="GPA" prefWidth="40"/>
+            <TableColumn fx:id="noteColumn" text="Note" prefWidth="240"/>
+        </columns>
+    </TableView>
+
+</VBox>
